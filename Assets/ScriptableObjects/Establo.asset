@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7b90a8ee30fd204395019954b707ce2, type: 3}
+  m_Name: Establo
+  m_EditorClassIdentifier: 
+  Icono: {fileID: 21300000, guid: 6f905792c1f6fde4dadcd524fbd2331c, type: 3}
+  Name: Establo
+  Descripcion: "Aqui podras criar caballos y ense\xF1arle a tus tropas a montarlos
+    y atacar desde ellos."
+  EdificioColocadoPrefab: {fileID: -6106748671239960922, guid: 23660c8549b342c48a9d48f05902688d, type: 3}
+  CostoOro: 600
+  CostoMadera: 200
+  CostoPiedra: 500
+  CostoMetal: 300
