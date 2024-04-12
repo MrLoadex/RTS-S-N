@@ -10,14 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e7b90a8ee30fd204395019954b707ce2, type: 3}
-  m_Name: Centro Urbano
+  m_Name: Granja
   m_EditorClassIdentifier: 
-  Icono: {fileID: 21300000, guid: acade6a00414beb4cbe6745b0b760c54, type: 3}
-  Name: Centro Urbano
-  Descripcion: Este es un edificio donde podras producir Aldeanos e investigar tecnologias
-    Fundamentales
-  EdificioColocadoPrefab: {fileID: -6106748671239960922, guid: 9b3dd1f4846a6e24ca72a8f7d94511ab, type: 3}
-  CostoOro: 150
+  Icono: {fileID: 21300000, guid: 6fdd187264b98d4438000116d66e1ae9, type: 3}
+  Name: Granja
+  Descripcion: Aqui podras Generar comida
+  EdificioColocadoPrefab: {fileID: -6106748671239960922, guid: 3d0dbc5926b29554aafaaf2f421f1ce1, type: 3}
+  CostoOro: 200
   CostoMadera: 100
-  CostoPiedra: 100
+  CostoPiedra: 50
   CostoMetal: 100

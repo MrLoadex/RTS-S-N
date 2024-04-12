@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -503,6 +503,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: bf2666cd8429d194897fb999f4bef3a1, type: 2}
   - {fileID: 11400000, guid: 1386f4d62409a1942b5260aaf4df247e, type: 2}
   - {fileID: 11400000, guid: c49aae4c9d01b1e43be9be2a1ce76203, type: 2}
+  - {fileID: 11400000, guid: 5098cf768ef38c646a34c89387afe3e9, type: 2}
+  colorLoock: {r: 1, g: 0, b: 0, a: 0.36078432}
+  colorUnloock: {r: 0, g: 1, b: 0, a: 0.31764707}
 --- !u!4 &600959976
 Transform:
   m_ObjectHideFlags: 0
@@ -2532,6 +2535,71 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1842254600}
   m_CullTransparentMesh: 1
+--- !u!1001 &1866082764
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 5222362058958849620, guid: f3df65b2f2a4bde40af91c24671898d0, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.96
+      objectReference: {fileID: 0}
+    - target: {fileID: 5222362058958849620, guid: f3df65b2f2a4bde40af91c24671898d0, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 5222362058958849620, guid: f3df65b2f2a4bde40af91c24671898d0, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -2.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 5222362058958849620, guid: f3df65b2f2a4bde40af91c24671898d0, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5222362058958849620, guid: f3df65b2f2a4bde40af91c24671898d0, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5222362058958849620, guid: f3df65b2f2a4bde40af91c24671898d0, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5222362058958849620, guid: f3df65b2f2a4bde40af91c24671898d0, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5222362058958849620, guid: f3df65b2f2a4bde40af91c24671898d0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5222362058958849620, guid: f3df65b2f2a4bde40af91c24671898d0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5222362058958849620, guid: f3df65b2f2a4bde40af91c24671898d0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7813319523259043905, guid: f3df65b2f2a4bde40af91c24671898d0, type: 3}
+      propertyPath: m_Name
+      value: Arqueria
+      objectReference: {fileID: 0}
+    - target: {fileID: 8477849838241394052, guid: f3df65b2f2a4bde40af91c24671898d0, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8477849838241394052, guid: f3df65b2f2a4bde40af91c24671898d0, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: f3df65b2f2a4bde40af91c24671898d0, type: 3}
 --- !u!1 &1898076435
 GameObject:
   m_ObjectHideFlags: 0
@@ -2725,3 +2793,4 @@ SceneRoots:
   - {fileID: 1322177929}
   - {fileID: 2028543701}
   - {fileID: 1712872679}
+  - {fileID: 1866082764}
