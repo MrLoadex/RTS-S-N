@@ -17,7 +17,12 @@ MonoBehaviour:
   Descripcion: Aqui podras entrenar a tus tropas para que aprendan a usar arcos y
     ballestas.
   EdificioColocadoPrefab: {fileID: -6106748671239960922, guid: f3df65b2f2a4bde40af91c24671898d0, type: 3}
+  unidadesDisponiblesConfigs:
+  - {fileID: 11400000, guid: 060108de5c134c641a76e77889c30410, type: 2}
+  investigacionesDisponiblesConfigs: []
+  colaMaximaAcciones: 5
   CostoOro: 300
   CostoMadera: 500
   CostoPiedra: 400
   CostoMetal: 0
+  TiempoDeConstruccion: 30

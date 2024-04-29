@@ -20,3 +20,4 @@ MonoBehaviour:
   CostoMadera: 100
   CostoPiedra: 50
   CostoMetal: 100
+  TiempoDeConstruccion: 60

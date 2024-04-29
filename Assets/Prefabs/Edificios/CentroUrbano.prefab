@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &2609794441776512791
+--- !u!1 &1246085822143624057
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,38 +8,7 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 5283618916375203860}
-  m_Layer: 0
-  m_Name: BarraVidaPosicion
-  m_TagString: Untagged
-  m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &5283618916375203860
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2609794441776512791}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.68, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 5222362058958849620}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &5242851024924652097
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1724259378242116987}
+  - component: {fileID: 182736868617171149}
   m_Layer: 0
   m_Name: UnitSpawnPoint
   m_TagString: Untagged
@@ -47,13 +16,13 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &1724259378242116987
+--- !u!4 &182736868617171149
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5242851024924652097}
+  m_GameObject: {fileID: 1246085822143624057}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0.94200003, y: 0.30279997, z: -0.138}
@@ -74,11 +43,11 @@ GameObject:
   - component: {fileID: 805031227859810910}
   - component: {fileID: 8477849838241394052}
   - component: {fileID: 5251570255500537050}
-  - component: {fileID: -5603014959516013288}
+  - component: {fileID: 7586339418626231444}
   - component: {fileID: -6106748671239960922}
-  - component: {fileID: -3415044268849940048}
+  - component: {fileID: 2990700699385925133}
   m_Layer: 0
-  m_Name: Cuartel
+  m_Name: CentroUrbano
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -97,8 +66,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1724259378242116987}
-  - {fileID: 5283618916375203860}
+  - {fileID: 182736868617171149}
+  - {fileID: 5980931151292266026}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &805031227859810910
@@ -172,7 +141,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!54 &-5603014959516013288
+--- !u!54 &7586339418626231444
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -211,14 +180,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 718c02a350e81b14e8943f09393fabef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Icono: {fileID: 21300000, guid: a468331e4f843364b9ba5be75ff12e8c, type: 3}
-  Name: Cuartel
-  Descripcion: Aqui podras entrenar tropas basicas
+  Icono: {fileID: 21300000, guid: acade6a00414beb4cbe6745b0b760c54, type: 3}
+  Name: Centro Urbano
+  Descripcion: Aqui podras producir aldeanos y realizar investigaciones basicas
   TiempoDeConstruccion: 60
-  unidadesDisponibles: []
-  investigacionesDisponibles: []
-  spawnUnitPosition: {fileID: 1724259378242116987}
---- !u!114 &-3415044268849940048
+  unidadesDisponiblesConfigs:
+  - {fileID: 11400000, guid: 3997af4dd2c25f742be60e1ac13235df, type: 2}
+  investigacionesDisponiblesConfigs: []
+  spawnUnitPosition: {fileID: 182736868617171149}
+  colaMaximaAcciones: 5
+  UnidadesDisponibles: []
+  InvestigacionesDisponibles: []
+--- !u!114 &2990700699385925133
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -233,4 +206,35 @@ MonoBehaviour:
   saludInicial: 100
   saludMax: 100
   barraVidaPrefab: {fileID: 5852200995298520590, guid: 38713bb4b770b4f45b76647e3ffb536b, type: 3}
-  barraVidaPosicion: {fileID: 5283618916375203860}
+  barraVidaPosicion: {fileID: 5980931151292266026}
+--- !u!1 &8906683369271179478
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5980931151292266026}
+  m_Layer: 0
+  m_Name: BarraVidaPosicion
+  m_TagString: Untagged
+  m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5980931151292266026
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8906683369271179478}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.68700004, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5222362058958849620}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

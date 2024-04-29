@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class EdificioBlueprintButton : MonoBehaviour
+public class EdificioBlueprintTarjeta : MonoBehaviour
 {
     [Header("Config")]
     [SerializeField] private Image icono;
@@ -28,7 +28,7 @@ public class EdificioBlueprintButton : MonoBehaviour
     public void ColocarEdificio()
     {
 
-        BuilderManager.Instance.ColocarObjeto(edificio);
+        BuilderManager.Instance.PosicionarEdificio(edificio);
 
     }
 }
