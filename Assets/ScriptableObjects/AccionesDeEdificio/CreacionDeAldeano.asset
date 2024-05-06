@@ -19,8 +19,8 @@ MonoBehaviour:
   Descripcion: Esta es una unidad basica que puede consturir edificios y recolectar
     recursos
   TiempoRequerido: 5
-  CostoOro: 10
-  CostoMadera: 0
+  CostoOro: 25
+  CostoMadera: 5
   CostoPiedra: 0
   CostoMetal: 0
   UnidadPorSpawnearPrefab: {fileID: 2069377854132559223, guid: 7f93a841893a528429a2b5c5eee9e43e, type: 3}

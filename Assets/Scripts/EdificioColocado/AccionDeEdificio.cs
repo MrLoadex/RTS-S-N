@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -17,6 +18,7 @@ public class AccionDeEdificio : MonoBehaviour
     public UnidadMovilColocada unidadPorSpawnearPrefab;
     
     [HideInInspector] public EdificioColocado edificioDueño = null;
+    [HideInInspector] public static Action<UnidadMovilColocada> EventoNuevaUnidad;
     
     public void Configurar(AccionDeEdificioConfig accionConfig )
     {
@@ -98,6 +100,9 @@ public class AccionDeEdificio : MonoBehaviour
         // Spawnear Unidad
         UnidadMovilColocada unidadInstanciada = Instantiate(unidadPorSpawnearPrefab);
         unidadInstanciada.transform.position = edificioDueño.SpawnUnitPosition.position;
+        
+        // Llamar al evento de nueva unidad instaniada y pasar la nueva unidad como parametro
+        EventoNuevaUnidad?.Invoke(unidadInstanciada);
     }
 
     public void Investigar()

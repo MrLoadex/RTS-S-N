@@ -17,10 +17,13 @@ public class BuilderManager : Singleton<BuilderManager>
 
     private EdificioBlueprint actualEdificioBlueprint = null;
     private EdificioColocado edificioPorColocarInstanciado;
-    List<Color> coloresOriginales = new List<Color>();
+    //private List<Material> materialesOriginales = new List<Material>();
+    private List<Material[]> originalMaterials = new List<Material[]>();
+    private Material materialEditado;
 
     private bool construyendo = false;
     private bool puedeSoltar = false;
+    float ajusteAlturaEdificio = 0f;
 
     private void Start() 
     {
@@ -39,114 +42,63 @@ public class BuilderManager : Singleton<BuilderManager>
         {
             ColocarEdificio();
         }
-    }
 
-    public void PosicionarEdificio(EdificioBlueprint edificio)
-    {
-        //Comprobacion de seguridad
-        if (edificio == null) return;
-
-        // Declaracion de variables
-        actualEdificioBlueprint = edificio;
-        bool recursosSuficientes = RecursosManager.Instance.ComprobarRecursosSuficientesEdificio(actualEdificioBlueprint);
-        List<Color> coloresOriginales = new List<Color>();
-        
-        // Comprobar si hay recursos suficientes
-        if (!recursosSuficientes){return; }
-
-        //Spawnea un nuevo Edificio
-        Vector3 coordenadasSpawn = new Vector3(0, 0, 0);
-        edificioPorColocarInstanciado = Instantiate(actualEdificioBlueprint.EdificioColocadoPrefab, coordenadasSpawn, Quaternion.identity);
-
-        // Setear el modo construccion
-        construyendo = true;
-
-
-        // Obtener el color original
-        coloresOriginales.AddRange( ObtenerColoresOriginales(edificioPorColocarInstanciado.gameObject));
-
-        //Setear color verde
-        CambiarColor(edificioPorColocarInstanciado.gameObject, colorUnloock);
-
-        //Seguir al mouse
-        MoverObjetoAlMouse(edificioPorColocarInstanciado.gameObject);
-
-    }
-
-    private List<Color> ObtenerColoresOriginales(GameObject edificioOBJ)
-    {
-        
-
-        // Obtiene el componente de renderizado del objeto
-        Renderer renderer = edificioOBJ.GetComponent<Renderer>();
-
-        if (renderer != null)
+        if (Input.GetAxis("Mouse ScrollWheel") != 0)
         {
-            // Obtiene el material utilizado para renderizar el objeto
-            Material material = renderer.sharedMaterial;
-
-            // Obtiene el color original del material y lo agrega a la lista
-            coloresOriginales.Add(material.color);
+            float sentido = Input.GetAxis("Mouse ScrollWheel") * 10;
+            RotarObjeto(edificioPorColocarInstanciado.gameObject, sentido);
         }
-
-        // Recorre los hijos del objeto actual
-        foreach (Transform child in edificioOBJ.transform)
-        {
-            // Obtiene los colores originales de los hijos recursivamente
-            List<Color> coloresHijo = ObtenerColoresOriginales(child.gameObject);
-
-            // Agrega los colores originales de los hijos a la lista principal
-            coloresOriginales.AddRange(coloresHijo);
-        }
-
-        return coloresOriginales;
     }
 
     private void CambiarColor(GameObject edificioOBJ, Color color)
     {
-        Material newMaterial = new Material(Shader.Find("Standard"));
-        newMaterial.color = color;
-
         // Obtener el componente de renderizado del objeto
         Renderer renderer = edificioOBJ.GetComponent<Renderer>();
 
         if (renderer != null)
         {
-            // Cambiar el material
-            renderer.sharedMaterial = newMaterial;
+            // Crear un nuevo arreglo de materiales basado en los materiales actuales
+            Material[] newMaterials = new Material[renderer.materials.Length];
 
-        }
+            for (int i = 0; i < newMaterials.Length; i++)
+            {
+                // Crear un nuevo material basado en el material existente para evitar compartir materiales entre objetos
+                newMaterials[i] = new Material(renderer.materials[i]);
+                newMaterials[i].color = color;
+            }
 
-        // Recorre los hijos del objeto actual
-        foreach (Transform child in edificioOBJ.transform)
-        {
-            // Les cambia el color a verde
-            CambiarColor(child.gameObject, color);
+            // Asignar los nuevos materiales al renderer
+            renderer.materials = newMaterials;
         }
     }
 
-    private void DevolverColores(GameObject edificioOBJ, List<Color> coloresOriginales)
+    // Cuando guardas los materiales:
+    private void GuardarMaterialesOriginales(GameObject edificioOBJ)
     {
-        // Obtiene los componentes de renderizado del objeto y sus hijos
+        Renderer[] renderers = edificioOBJ.GetComponentsInChildren<Renderer>();
+        originalMaterials.Clear();
+
+        foreach (Renderer renderer in renderers)
+        {
+            // Guardamos una copia de todos los materiales en este renderer
+            originalMaterials.Add(renderer.sharedMaterials.Clone() as Material[]);
+        }
+    }
+
+    // Cuando restauras los materiales:
+    private void DevolverColores(GameObject edificioOBJ)
+    {
         Renderer[] renderers = edificioOBJ.GetComponentsInChildren<Renderer>();
 
-        // Itera sobre todos los componentes de renderizado
         for (int i = 0; i < renderers.Length; i++)
         {
-            // Verifica si el índice de color original existe en la lista
-            if (i < coloresOriginales.Count)
+            if (i < originalMaterials.Count)
             {
-                // Obtiene el material del componente de renderizado
-                Material material = renderers[i].sharedMaterial;
-
-                // Restaura el color original del material
-                material.color = coloresOriginales[i];
-            }
-            else
-            {
-                Debug.LogWarning("No se pudo restaurar el color original para el componente de renderizado número " + i + " debido a la falta de colores originales.");
+                renderers[i].materials = originalMaterials[i];
             }
         }
+
+        originalMaterials.Clear(); // Limpieza final
     }
 
     private void MoverObjetoAlMouse(GameObject edificioOBJ)
@@ -158,9 +110,10 @@ public class BuilderManager : Singleton<BuilderManager>
         RaycastHit hit;
         if(Physics.Raycast(ray, out hit, Mathf.Infinity,zonaPosible))
         {
-            edificioOBJ.transform.position = hit.point;
+            //edificioOBJ.transform.position = hit.point;
+            edificioOBJ.transform.position = new Vector3(hit.point.x, hit.point.y + ajusteAlturaEdificio,hit.point.z);
 
-            edificioOBJ.transform.rotation = Quaternion.FromToRotation(Vector3.up,hit.normal);
+            //edificioOBJ.transform.rotation = Quaternion.FromToRotation(Vector3.up,hit.normal);
 
             if(hit.normal == Vector3.up)
             {
@@ -183,6 +136,16 @@ public class BuilderManager : Singleton<BuilderManager>
         }
     }
 
+    private void RotarObjeto(GameObject edificioOBJ, float sentido)
+    {
+        // Asegúrate de que el objeto no es null para evitar errores de ejecución
+        if (edificioOBJ != null)
+        {
+            // Rota el objeto en 15 grados alrededor del eje Y
+            edificioOBJ.transform.Rotate(0, 15f * sentido, 0, Space.World);
+        }
+    }
+
     private void ColocarEdificio()
     {
         // Comprobacion de seguridad
@@ -195,13 +158,11 @@ public class BuilderManager : Singleton<BuilderManager>
         RecursosManager.Instance.ColocarEdificio(actualEdificioBlueprint);
 
         // Devolver colores
-        DevolverColores(edificioPorColocarInstanciado.gameObject, coloresOriginales);
+        DevolverColores(edificioPorColocarInstanciado.gameObject);
 
         // Informarle al eidifcio que fue colocado
         edificioPorColocarInstanciado.ColocarEdificio();
 
-        //Seleccionar unidad
-        UIManager.Instance.SeleccionarUnidad(edificioPorColocarInstanciado);
         // Finalizar el modo construccion
         construyendo = false;   
         
@@ -210,4 +171,36 @@ public class BuilderManager : Singleton<BuilderManager>
         actualEdificioBlueprint = null;
     }
 
+    public void PosicionarEdificio(EdificioBlueprint edificio)
+    {
+        //Comprobacion de seguridad
+        if (edificio == null) return;
+
+        // Declaracion de variables
+        actualEdificioBlueprint = edificio;
+        bool recursosSuficientes = RecursosManager.Instance.ComprobarRecursosSuficientesEdificio(actualEdificioBlueprint);
+        
+        // Comprobar si hay recursos suficientes
+        if (!recursosSuficientes){return; }
+
+        //Spawnea un nuevo Edificio
+        Vector3 coordenadasSpawn = new Vector3(0, ajusteAlturaEdificio, 0);
+        edificioPorColocarInstanciado = Instantiate(actualEdificioBlueprint.EdificioColocadoPrefab, coordenadasSpawn, Quaternion.identity);
+
+        // Ajustar la posición basada en la altura del objeto
+        ajusteAlturaEdificio = edificio.EdificioColocadoPrefab.AjusteDeAltura;
+
+
+        // Obtener el renderer del objeto
+        GuardarMaterialesOriginales(edificio.EdificioColocadoPrefab.gameObject);
+        
+        //Setear color verde o rojo
+        CambiarColor(edificioPorColocarInstanciado.gameObject, colorUnloock);
+
+        //Seguir al mouse
+        MoverObjetoAlMouse(edificioPorColocarInstanciado.gameObject);
+
+        // Setear el modo construccion
+        construyendo = true;
+    }
 }

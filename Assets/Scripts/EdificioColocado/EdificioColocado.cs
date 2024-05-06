@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public enum EstadoEdificio
 {
@@ -18,13 +19,15 @@ public class EdificioColocado : UnidadColocada
 
     public int TiempoDeConstruccion{private set; get;}
 
+
     [Header("Acciones Disponibles")]
     private List<AccionDeEdificioConfig> unidadesDisponiblesConfigs;
     private List<AccionDeEdificioConfig> investigacionesDisponiblesConfigs;
 
     [Header("Config")]
     [SerializeField] private Transform spawnUnitPosition; // Donde se spawnearan las unidades
-    private int colaMaximaAcciones = 5; // Max de unidades e investigaciones en la cola al mismo tiempo
+    [SerializeField] private int colaMaximaAcciones = 5; // Max de unidades e investigaciones en la cola al mismo tiempo
+    [SerializeField] private float ajusteDeAltura;
 
     //Propiedades de acciones
     public List<AccionDeEdificio> UnidadesDisponibles {private set;get;} = new List<AccionDeEdificio>();
@@ -36,6 +39,8 @@ public class EdificioColocado : UnidadColocada
     public EstadoEdificio EstadoConstruccion {private set; get;} = EstadoEdificio.Posicionando;
     public bool ConstruccionBloqueada {private set; get;} // Saber si esta bloqueado para su construcicon
     public int TiempoActualConstruccion {get; private set;} = 0;
+    public float AjusteDeAltura => ajusteDeAltura;
+
     private bool aldeanoDisponible = false;
 
     // Unidades e investigaciones en cola de produccion | La primer accion se estara creando
@@ -45,6 +50,7 @@ public class EdificioColocado : UnidadColocada
     private bool investigando = false;
     public int TiempoActualUnidadDesarrollo {private set; get;} = 0;
     public int TiempoActualInvestigacionDesarrollo {private set; get;} = 0;
+
 
     private void Update() 
     {
@@ -73,6 +79,7 @@ public class EdificioColocado : UnidadColocada
         unidadesDisponiblesConfigs = blueprint.unidadesDisponiblesConfigs;
         investigacionesDisponiblesConfigs = blueprint.investigacionesDisponiblesConfigs;
         colaMaximaAcciones = blueprint.colaMaximaAcciones;
+        GetComponent<NavMeshObstacle>().enabled = true;
 
     }
 

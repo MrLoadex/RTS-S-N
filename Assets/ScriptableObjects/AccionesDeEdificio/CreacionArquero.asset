@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: acecc44189d602a48b322835c2b2c8c4, type: 3}
+  m_Name: CreacionArquero
+  m_EditorClassIdentifier: 
+  Tipo: 1
+  Icono: {fileID: 21300000, guid: eee5912effece494eb79008a3e3f2395, type: 3}
+  ID: creacionArquero
+  Name: Creacion De Arquero
+  Descripcion: Este es un soldad basico que ataca a distancia
+  TiempoRequerido: 30
+  CostoOro: 60
+  CostoMadera: 50
+  CostoPiedra: 0
+  CostoMetal: 10
+  UnidadPorSpawnearPrefab: {fileID: 0}
