@@ -9,6 +9,7 @@ public class VidaBase : MonoBehaviour
     [SerializeField] protected float saludMax;
 
     public float Salud { get; protected set; }
+    public float SaludMax => saludMax;
 
     // Start is called before the first frame update
     protected virtual void Start()

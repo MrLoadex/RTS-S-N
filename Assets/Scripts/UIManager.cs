@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -20,6 +21,7 @@ public class UIManager : Singleton<UIManager>
     [SerializeField] private GameObject edificioPanel;
     [SerializeField] private GameObject edificioEnConstruccionPanel;
     [SerializeField] private GameObject decripcionEdificioPanel;
+    [SerializeField] private GameObject unidadesSeleccionadasPanel;
 
     [Header("Building")]
     [SerializeField] private Transform buildersContenedor;
@@ -63,16 +65,21 @@ public class UIManager : Singleton<UIManager>
     [SerializeField] private Transform contenedorTarjetasUnidProgres;
     [SerializeField] private Transform contenedorTarjetasInvProgres;
 
-    [Header("Costo accion de Edificio")]
+    [Header("Costo accion de Edificio Config")]
     [SerializeField] private TextMeshProUGUI accionEdificioCostoOroTMP;
     [SerializeField] private TextMeshProUGUI accionEdificioCostoMaderaTMP;
     [SerializeField] private TextMeshProUGUI accionEdificioCostoPiedraTMP;
     [SerializeField] private TextMeshProUGUI accionEdificioCostoMetalTMP;
 
+    [Header("Unidades Seleccionadas Config")]
+    [SerializeField] private Transform contenedorTarjetasUnidadesSelect;
+    [SerializeField] private UnidadSelectTarjeta unidadSelectTarjeta;
+
+
     // Guarda la ultima unidad seleccionada para saber si debe seguir actualizando la interface de construccion
     private UnidadColocada ultimaUnidadSeleccionada;
     // Listas para saber si se actualizan las colas del edificio
-    private AccionDeEdificio[] colaActualUnidades = new AccionDeEdificio[5]; // Se harckodea 5 por comodidad
+    private AccionDeEdificio[] colaActualUnidades = new AccionDeEdificio[5]; // Se harcodea 5 por comodidad
     private AccionDeEdificio[] colaActualInvestigaciones = new AccionDeEdificio[5];
 
 
@@ -96,6 +103,31 @@ public class UIManager : Singleton<UIManager>
 
             //Configurar UI
             ConfigurarEdificioSeleccionadoUI(edificio);
+        }
+    }
+
+    public void ActualizarUIUnidadesSeleccionadas(List<UnidadMovilColocada> unidades)
+    {
+        // Comprobar si la lista esta vacia
+        if(unidades.Count == 0 || unidades == null)
+        {
+            AbrirCerrarPanelGeneral(true);
+            return;
+        }
+        // Abrir el panel
+        AbrirCerrarPanelUnidadesSelect(true);
+
+        // Eliminar tarjetas actuales
+        foreach (Transform child in contenedorTarjetasUnidadesSelect)
+        {
+            Destroy(child.gameObject);
+        }
+
+        // Instanciar nuevas tarjetas
+        foreach (var unidad in unidades)
+        {
+            UnidadSelectTarjeta tarjeta = Instantiate(unidadSelectTarjeta, contenedorTarjetasUnidadesSelect);
+            tarjeta.ConfigurarTarjeta(unidad);            
         }
     }
 
@@ -400,8 +432,15 @@ public class UIManager : Singleton<UIManager>
         edificioEnConstruccionPanel.SetActive(estado);
     }
 
+    public void AbrirCerrarPanelUnidadesSelect(bool estado)
+    {
+        CerrarPaneles();
+        unidadesSeleccionadasPanel.SetActive(estado);
+    }
+
     private void CerrarPaneles()
     {
+        unidadesSeleccionadasPanel.SetActive(false);
         edificioPanel.SetActive(false);
         edificioEnConstruccionPanel.SetActive(false);
         buildPanel.SetActive(false);
@@ -410,4 +449,3 @@ public class UIManager : Singleton<UIManager>
     #endregion
 
 }
-

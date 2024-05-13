@@ -51,6 +51,10 @@ public class EdificioColocado : UnidadColocada
     public int TiempoActualUnidadDesarrollo {private set; get;} = 0;
     public int TiempoActualInvestigacionDesarrollo {private set; get;} = 0;
 
+    protected override void Start()
+    {
+        base.Start();
+    }
 
     private void Update() 
     {
@@ -85,6 +89,9 @@ public class EdificioColocado : UnidadColocada
 
     public void ColocarEdificio()
     {
+        // Activar el sistema de vida
+        VidaSystem.enabled = true;
+        
         // Modificar el estado del edificio
         EstadoConstruccion = EstadoEdificio.EnConstruccion;
 

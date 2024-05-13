@@ -22,4 +22,4 @@ MonoBehaviour:
   CostoMadera: 20
   CostoPiedra: 0
   CostoMetal: 50
-  UnidadPorSpawnearPrefab: {fileID: 0}
+  UnidadPorSpawnearPrefab: {fileID: -4246926400736986971, guid: 1b7908cee5d59484abe315722dcfae53, type: 3}

@@ -482,6 +482,7 @@ MonoBehaviour:
   Icono: {fileID: 0}
   Name: 
   Descripcion: 
+  Equipo: 0
   spawnUnitPosition: {fileID: 0}
   colaMaximaAcciones: 5
   ajusteDeAltura: 0
@@ -492,7 +493,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6348523434539657456}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: eadaffc143bec3946a57c640e5f2b412, type: 3}
   m_Name: 

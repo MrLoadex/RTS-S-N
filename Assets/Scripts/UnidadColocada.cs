@@ -1,13 +1,26 @@
 
 using UnityEngine;
-using UnityEngine.UI;
+
+public enum Team
+{
+    Aliado,
+    Enemigo
+}
+
 
 public class UnidadColocada : MonoBehaviour
 {
     [HideInInspector] public Sprite Icono;
-    [HideInInspector] public string Name;
+    public string Name;
     [HideInInspector] public string Descripcion;
+    public Team Equipo = Team.Aliado;
+    public UnidadVida VidaSystem { get; private set; }
     
+    protected virtual void Start() 
+    {
+        VidaSystem = GetComponent<UnidadVida>();
+    }
+
     public virtual void SeleccionarUnidad()
     {
         

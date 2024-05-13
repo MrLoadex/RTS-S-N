@@ -17,11 +17,9 @@ public class BuilderManager : Singleton<BuilderManager>
 
     private EdificioBlueprint actualEdificioBlueprint = null;
     private EdificioColocado edificioPorColocarInstanciado;
-    //private List<Material> materialesOriginales = new List<Material>();
     private List<Material[]> originalMaterials = new List<Material[]>();
-    private Material materialEditado;
 
-    private bool construyendo = false;
+    public bool Construyendo {get; private set;} = false;
     private bool puedeSoltar = false;
     float ajusteAlturaEdificio = 0f;
 
@@ -34,19 +32,34 @@ public class BuilderManager : Singleton<BuilderManager>
     private void Update() 
     {
         //Compronacion
-        if (!construyendo || actualEdificioBlueprint == null) return;
+        if (!Construyendo || actualEdificioBlueprint == null) return;
 
         MoverObjetoAlMouse(edificioPorColocarInstanciado.gameObject);
 
-        if(puedeSoltar && Input.GetButtonDown("Fire1"))
-        {
-            ColocarEdificio();
-        }
-
+        // Grirar edificio
         if (Input.GetAxis("Mouse ScrollWheel") != 0)
         {
             float sentido = Input.GetAxis("Mouse ScrollWheel") * 10;
             RotarObjeto(edificioPorColocarInstanciado.gameObject, sentido);
+        }
+
+        // Colocar Edificio
+        if(puedeSoltar && Input.GetButtonDown("Fire1"))
+        {
+            ColocarEdificio();
+        }
+        
+        // Cancelar construccion
+        if(Input.GetKeyDown(KeyCode.Escape) || Input.GetButtonDown("Fire2"))
+        {
+            //DevolverColores(edificioPorColocarInstanciado.gameObject);
+            //Destruir la instancia actual
+            Destroy(edificioPorColocarInstanciado.gameObject);
+            // Finalizar el modo construccion
+            Construyendo = false;
+            // Resetear variables
+            edificioPorColocarInstanciado = null;
+            actualEdificioBlueprint = null;
         }
     }
 
@@ -103,7 +116,7 @@ public class BuilderManager : Singleton<BuilderManager>
 
     private void MoverObjetoAlMouse(GameObject edificioOBJ)
     {
-        if (!construyendo || edificioOBJ == null) return;
+        if (!Construyendo || edificioOBJ == null) return;
 
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
@@ -164,7 +177,7 @@ public class BuilderManager : Singleton<BuilderManager>
         edificioPorColocarInstanciado.ColocarEdificio();
 
         // Finalizar el modo construccion
-        construyendo = false;   
+        Construyendo = false;   
         
         // Resetear variables
         edificioPorColocarInstanciado = null;
@@ -201,6 +214,6 @@ public class BuilderManager : Singleton<BuilderManager>
         MoverObjetoAlMouse(edificioPorColocarInstanciado.gameObject);
 
         // Setear el modo construccion
-        construyendo = true;
+        Construyendo = true;
     }
 }

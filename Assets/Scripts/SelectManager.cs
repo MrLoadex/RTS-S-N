@@ -1,6 +1,4 @@
-using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class SelectManager : Singleton<SelectManager>
@@ -33,13 +31,13 @@ public class SelectManager : Singleton<SelectManager>
 
     }
 
-
     private void SeleccionarUnidad()
     {
         Ray ray = cam.ScreenPointToRay(Input.mousePosition);
 
         if (Physics.Raycast(ray, out hit))
         {
+            // Intentar obtener componente de unidad colocada del objeto donde impacto el rayo
             EdificioColocado edificioSelect = hit.collider.GetComponent<EdificioColocado>();
             UnidadMovilColocada unidadMovilSelect = hit.collider.GetComponent<UnidadMovilColocada>();
 
@@ -48,7 +46,7 @@ public class SelectManager : Singleton<SelectManager>
                 unidadesMovilesSeleccionadas.Clear();
                 edificioSelect.SeleccionarUnidad();
             }
-            else if (unidadMovilSelect != null && unidadMovilSelect.Aliado)
+            else if (unidadMovilSelect != null && unidadMovilSelect.Equipo == Team.Aliado)
             {
                 if (Input.GetKey(KeyCode.LeftControl))
                 {
@@ -62,6 +60,7 @@ public class SelectManager : Singleton<SelectManager>
                     unidadesMovilesSeleccionadas.Add(unidadMovilSelect);
                     unidadMovilSelect.SeleccionarUnidad();
                 }
+                UIManager.Instance.ActualizarUIUnidadesSeleccionadas(UnidadesMovilesSeleccionadas);
             }
         }
     }
@@ -77,6 +76,5 @@ public class SelectManager : Singleton<SelectManager>
             unidadesMovilesSeleccionadas.Add(unidadMovil);
         }
     }
-
 
 }

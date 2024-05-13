@@ -14,8 +14,19 @@ public class UnidadMovilColocada : UnidadColocada
 {
     public TipoUnidadMovil Tipo;
     [SerializeField] private NavMeshAgent agent;
-    public bool Aliado = true;
+    [SerializeField] private UnidadVision visionPrefab;
 
+    public UnitCombat CombatSystem { get; private set; }
+
+    protected override void Start() 
+    {
+        base.Start();
+        CombatSystem = GetComponent<UnitCombat>();
+        
+        // Instanciar la vision
+        UnidadVision vision = Instantiate(visionPrefab, transform);
+        vision.unidadDueña = this;
+    }
 
     private void Update() 
     {
@@ -28,10 +39,6 @@ public class UnidadMovilColocada : UnidadColocada
 
     public override void SeleccionarUnidad()
     {
-        
-        // Abrir su panel
 
-        //Prepararse para moverse
     }
-
 }

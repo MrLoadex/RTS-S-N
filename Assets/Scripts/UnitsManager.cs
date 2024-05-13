@@ -5,12 +5,12 @@ using UnityEngine;
 public class UnitsManager : Singleton<UnitsManager>
 {
 
-    public List<UnidadMovilColocada> unidadMovilColocadas { get; private set; }
+    public List<UnidadMovilColocada> UnidadMovilColocadas { get; private set; }
 
     // Start is called before the first frame update
     void Start()
     {
-        unidadMovilColocadas = new List<UnidadMovilColocada>();
+        UnidadMovilColocadas = new List<UnidadMovilColocada>();
     }
 
     // Update is called once per frame
@@ -19,22 +19,47 @@ public class UnitsManager : Singleton<UnitsManager>
         if(Input.GetMouseButtonDown(1))
         {
             // Si es una sola unidad
-            Ray movePosition = Camera.main.ScreenPointToRay(Input.mousePosition);
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             
-            if(Physics.Raycast(movePosition, out var hitInfo))
+            if(Physics.Raycast(ray, out var hit))
             {
-                // Mover unidades
-                if(SelectManager.Instance.UnidadesMovilesSeleccionadas.Count == 1)
+                // Intentar obtener componente de unidad colocada del objeto donde impacto el rayo
+                var unidadObjetivo = hit.collider.GetComponent<UnidadColocada>();
+
+                // Si impacta contra una unidad enemiga
+                if (unidadObjetivo != null && unidadObjetivo.Equipo != Team.Aliado)
                 {
-                    SelectManager.Instance.UnidadesMovilesSeleccionadas[0].MoverUnidad(hitInfo.point);
+                    // Atacar
+                    Atacar(SelectManager.Instance.UnidadesMovilesSeleccionadas ,unidadObjetivo);
                 }
-                // Si son muchas
                 else
                 {
-                    MoverMultiplesUnidades(SelectManager.Instance.UnidadesMovilesSeleccionadas, hitInfo.point);
+                    MoverUnidad(hit);
                 }
             } 
             
+        }
+    }
+
+    void Atacar(List<UnidadMovilColocada> unidadesMovilesSelect, UnidadColocada unidadObjetivo)
+    {
+        foreach (var unidad in unidadesMovilesSelect)
+        {
+            unidad.CombatSystem.ComenzarAtaque(unidadObjetivo.VidaSystem);
+        }
+    }
+
+    void MoverUnidad(RaycastHit hit)
+    {
+        // Mover unidades
+        if(SelectManager.Instance.UnidadesMovilesSeleccionadas.Count == 1)
+        {
+            SelectManager.Instance.UnidadesMovilesSeleccionadas[0].MoverUnidad(hit.point);
+        }
+        // Si son muchas
+        else
+        {
+            MoverMultiplesUnidades(SelectManager.Instance.UnidadesMovilesSeleccionadas, hit.point);
         }
     }
 
@@ -57,6 +82,27 @@ public class UnitsManager : Singleton<UnitsManager>
         }
     }
 
+    public void CambiarComportamiento(string comportamientoString)
+    {
+        //Obtener las unidades moviles seleccionadas
+        var unidadesMovilesSeleccionadas = SelectManager.Instance.UnidadesMovilesSeleccionadas;
+
+        // Intenta convertir el string a un valor enum
+        if (Comportamiento.TryParse(comportamientoString, out Comportamiento comportamiento))
+        {
+            // Recorrer todas las unidades con el comportamiento adecuado
+            foreach (var unidad in unidadesMovilesSeleccionadas)
+            {
+                unidad.CombatSystem.CambiarComportamiento(comportamiento);
+            }
+        }
+        else
+        {
+            // Opcional: manejar el caso donde el string no es válido
+            Debug.LogError("El valor proporcionado no es un comportamiento válido: " + comportamientoString);
+        }
+    }
+
     #region Eventos
 
     private void OnEnable() 
@@ -71,7 +117,7 @@ public class UnitsManager : Singleton<UnitsManager>
 
     void AgregarUnidadMovil(UnidadMovilColocada unidadNueva)
     {
-        unidadMovilColocadas.Add(unidadNueva);
+        UnidadMovilColocadas.Add(unidadNueva);
     }
 
     #endregion
