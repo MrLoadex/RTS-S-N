@@ -11,8 +11,7 @@
 /[Mm]emoryCaptures/
 /[Rr]ecordings/
 
-/[Aa]ssets/[Vv]endors/
-/Assets/Vendors/
+/[Aa]ssets/[Vv]endors/*
 !/[Aa]ssets/[Vv]endors/vendors.md
 
 # Uncomment this line if you wish to ignore the asset store tools plugin
