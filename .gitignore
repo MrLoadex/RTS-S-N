@@ -11,6 +11,8 @@
 /[Mm]emoryCaptures/
 /[Rr]ecordings/
 
+/[Aa]sets/[Vv]endors/*
+
 # Uncomment this line if you wish to ignore the asset store tools plugin
 # /[Aa]ssets/AssetStoreTools*
 
@@ -53,7 +55,3 @@ crashlytics-build.properties
 
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
-
-# Ignorar contenido de Asets/Vendors excepto vendors.md
-[Aa]sets/Vendors/*
-![Aa]sets/Vendors/vendors.md
