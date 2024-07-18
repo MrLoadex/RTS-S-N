@@ -46,6 +46,7 @@ public class UnitCombat : MonoBehaviour
     Actividad actividad = Actividad.Descansando;
     Vector3 posicionOriginal;
 
+    public Actividad ActivadadActual => actividad;
     public Estado estadoActual;
 
     private void Update() 

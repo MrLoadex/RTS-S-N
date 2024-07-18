@@ -2,7 +2,6 @@ using System;
 using UnityEngine;
 using UnityEngine.AI;
 
-
 [Serializable]
 public enum TipoUnidadMovil
 {
@@ -17,7 +16,6 @@ public class UnidadMovilColocada : UnidadColocada
     [SerializeField] private UnidadVision visionPrefab;
     public UnitCombat CombatSystem { get; private set; }
     [SerializeField] private GameObject auraSeleccionObject;
-    
 
     protected override void Start() 
     {
@@ -42,6 +40,7 @@ public class UnidadMovilColocada : UnidadColocada
     {
         auraSeleccionObject?.SetActive(true);
     }
+    
     public override void DeseleccionarUnidad()
     {
         // Solo los aliados tienen un aura de seleccion

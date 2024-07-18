@@ -1,7 +1,7 @@
 Pronto subire la documentacion del proyecto.
 
 # Assets Necesarios
-Importar en Assets/Vendors/
+Importar y mover a Assets/Vendors/
 ## 1. AllSkyFree
 
 [![AllSkyFree](https://assetstorev1-prd-cdn.unity3d.com/key-image/1a2b8e97-18ff-484f-9dcb-c1c6c4a462c0.webp)](https://assetstore.unity.com/packages/2d/textures-materials/sky/allsky-free-10-sky-skybox-set-146014)

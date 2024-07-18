@@ -68,6 +68,8 @@ public class RecursoColocado : UnidadColocada
         yield return new WaitForSeconds(tiempoEntreRecoleccion);
         if (aldeanoRecolector != null)
         {
+            //Avisarle al aldeano que se ponga a laburar
+            aldeanoRecolector.GetComponent<SlimeAnimator>()?.RecolectarRecurso();
             // Agregar recurso
             RecursosManager.Instance.AgregarRecurso(TipoRecurso, ((int)(aldeanoRecolector.CombatSystem.Daño)));
             // Hacer daño

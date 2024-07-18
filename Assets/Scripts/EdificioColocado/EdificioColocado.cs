@@ -147,7 +147,7 @@ public class EdificioColocado : UnidadColocada
             {
                 //comenzar Construccion
                 aldeanoDisponible = true;
-                StartCoroutine(ContinuarConstruccion());
+                StartCoroutine(ContinuarConstruccion(unidadMovil));
             }
         }
 
@@ -170,7 +170,7 @@ public class EdificioColocado : UnidadColocada
                 // Informar que no hay aldeanos disponibles
                 aldeanoDisponible = false;
                 //detener Construccion
-                StopCoroutine(ContinuarConstruccion());
+                StopCoroutine(ContinuarConstruccion(null));
             }
         }
     }
@@ -180,8 +180,9 @@ public class EdificioColocado : UnidadColocada
         UIManager.Instance.SeleccionarUnidad(this);   
     }
 
-    private IEnumerator ContinuarConstruccion()
+    private IEnumerator ContinuarConstruccion(UnidadMovilColocada aldeanoConstrucor)
     {
+        aldeanoConstrucor.GetComponent<SlimeAnimator>()?.RecolectarRecurso();
         TiempoActualConstruccion ++;
         yield return new WaitForSeconds(1f);
 
@@ -189,7 +190,7 @@ public class EdificioColocado : UnidadColocada
         {
             if (TiempoActualConstruccion < TiempoDeConstruccion)
             {
-                StartCoroutine(ContinuarConstruccion());
+                StartCoroutine(ContinuarConstruccion(aldeanoConstrucor));
             }
             else
             {
