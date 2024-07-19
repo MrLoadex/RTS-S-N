@@ -7,7 +7,7 @@ public class UnitsManager : Singleton<UnitsManager>
 {
     [SerializeField] private GameObject objetoReferMovPrefab;
 
-    public static Action<UnidadColocada> EventoUnidadControladaPorUsuario;
+    public static Action<UnidadMovilColocada> EventoUnidadControladaPorUsuario;
 
     [SerializeField] private List<UnidadMovilColocada> unidadesMovilesColocadas;
     public List<UnidadMovilColocada> UnidadesMovilesColocadas => unidadesMovilesColocadas;

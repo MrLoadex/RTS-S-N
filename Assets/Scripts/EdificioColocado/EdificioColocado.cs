@@ -15,7 +15,9 @@ public class EdificioColocado : UnidadColocada
 {
 
     //Este evento se utilizara para notificar a los aldeanos
-    public Action<EstadoEdificio> EventoConstruccionEdificio;
+    public Action<EstadoEdificio> EventoEstadoConstruccionEdificio;
+
+    public static Action<UnidadMovilColocada> EventoConstruyendoEdificio;
 
     public int TiempoDeConstruccion{private set; get;}
 
@@ -42,6 +44,7 @@ public class EdificioColocado : UnidadColocada
     public float AjusteDeAltura => ajusteDeAltura;
 
     private bool aldeanoDisponible = false;
+    private Team equipoCorrecto;
 
     // Unidades e investigaciones en cola de produccion | La primer accion se estara creando
     public AccionDeEdificio[] colaActualUnidades {get; private set;}
@@ -54,6 +57,9 @@ public class EdificioColocado : UnidadColocada
     protected override void Start()
     {
         base.Start();
+        // Se modifica el equipo para que ninguna unidad intente atacarlo mientras esta siendo colocado.
+        equipoCorrecto = Equipo;
+        Equipo = Team.Neutral;
     }
 
     private void Update() 
@@ -89,6 +95,12 @@ public class EdificioColocado : UnidadColocada
 
     public void ColocarEdificio()
     {
+        //Activar el nav mesh obstacle para que las unidades no puedan traspasarlo una vez colocado
+        gameObject.GetComponent<NavMeshObstacle>().enabled = true;
+
+        // Convertir el edificio al team Correcto 
+        Equipo = equipoCorrecto;
+
         // Activar el sistema de vida
         VidaSystem.enabled = true;
         
@@ -117,16 +129,16 @@ public class EdificioColocado : UnidadColocada
             UnidadesDisponibles.Add(unidadDispoNueva);
         }
 
-        EventoConstruccionEdificio?.Invoke(EstadoConstruccion); // NO APLICADO AUN. SERA PARA EL CITYMANAGER O ALGO ASI
+        EventoEstadoConstruccionEdificio?.Invoke(EstadoConstruccion); // NO APLICADO AUN. SERA PARA EL CITYMANAGER O ALGO ASI
     }
 
     public void ConstruirEdificio()
     {
         EstadoConstruccion = EstadoEdificio.Construido;
-        EventoConstruccionEdificio?.Invoke(EstadoConstruccion);
+        EventoEstadoConstruccionEdificio?.Invoke(EstadoConstruccion);
     }
 
-    private void OnCollisionEnter(Collision other) 
+    private void OnTriggerEnter(Collider other) 
     {
         //Si el objeto se esta posicionando interesa saber si es otro edificio para bloquear la construccion
         if (EstadoConstruccion == EstadoEdificio.Posicionando)
@@ -153,7 +165,7 @@ public class EdificioColocado : UnidadColocada
 
     }
 
-    private void OnCollisionExit(Collision other) 
+    private void OnTriggerExit(Collider other) 
     {
         if (EstadoConstruccion == EstadoEdificio.Posicionando)
         {
@@ -182,12 +194,15 @@ public class EdificioColocado : UnidadColocada
 
     private IEnumerator ContinuarConstruccion(UnidadMovilColocada aldeanoConstrucor)
     {
-        aldeanoConstrucor.GetComponent<SlimeAnimator>()?.RecolectarRecurso();
+        EventoConstruyendoEdificio.Invoke(aldeanoConstrucor);
         TiempoActualConstruccion ++;
         yield return new WaitForSeconds(1f);
 
         if(aldeanoDisponible)
         {
+            // Llamar al evento de edificio en construccion
+            EventoConstruyendoEdificio?.Invoke(aldeanoConstrucor);
+
             if (TiempoActualConstruccion < TiempoDeConstruccion)
             {
                 StartCoroutine(ContinuarConstruccion(aldeanoConstrucor));

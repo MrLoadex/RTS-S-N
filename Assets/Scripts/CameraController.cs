@@ -4,14 +4,17 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-    [SerializeField] private float moveSpeed;
-    [SerializeField] private float zoomSpeed;
-    [SerializeField] private float rotationSpeed;
+    [SerializeField] private float moveSpeed = 5f;
+    [SerializeField] private float zoomSpeed = 2f;
+    [SerializeField] private float rotationSpeed = 100f;
+    
+    [SerializeField] private float maxZoom = 20f;
+    [SerializeField] private float minZoom = 2f;
+    
+    [SerializeField] private float rotationDistance = 20f; // Distancia regulable para el punto de rotación
+    
+    private Camera cam;
 
-    [SerializeField] private float maxZoom = 20;
-    [SerializeField] private float minZoom = 2;
-
-    Camera cam;
     // Start is called before the first frame update
     void Start()
     {
@@ -61,13 +64,32 @@ public class CameraController : MonoBehaviour
 
     void Rotate()
     {
+        Vector3 rotationPoint = transform.position + transform.forward * rotationDistance;
+
         if (Input.GetKey(KeyCode.E))
         {
-            transform.Rotate(0, rotationSpeed * Time.deltaTime, 0, Space.World);
+            RotateAroundPoint(rotationPoint, rotationSpeed * Time.deltaTime);
         }
         if (Input.GetKey(KeyCode.Q))
         {
-            transform.Rotate(0, -rotationSpeed * Time.deltaTime, 0, Space.World);
+            RotateAroundPoint(rotationPoint, -rotationSpeed * Time.deltaTime);
+        }
+    }
+
+    void RotateAroundPoint(Vector3 point, float angle)
+    {
+        // Gira la cámara alrededor del punto especificado
+        transform.RotateAround(point, Vector3.up, angle);
+    }
+
+    void OnDrawGizmos()
+    {
+        // Dibuja un gizmo para representar el punto de rotación
+        if (Application.isPlaying)
+        {
+            Gizmos.color = Color.red;
+            Vector3 rotationPoint = transform.position + transform.forward * rotationDistance;
+            Gizmos.DrawLine(rotationPoint, rotationPoint + Vector3.up * 5f); // Línea vertical en el eje Y
         }
     }
 }

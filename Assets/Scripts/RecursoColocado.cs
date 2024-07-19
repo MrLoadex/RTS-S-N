@@ -13,6 +13,8 @@ public enum TipoRecurso
 
 public class RecursoColocado : UnidadColocada
 {
+    public static Action<UnidadMovilColocada, TipoRecurso> EventoRecursoExtrayendose;
+
     [SerializeField] private TipoRecurso tipoRecurso;
     public TipoRecurso TipoRecurso=> tipoRecurso;
     public float tiempoEntreRecoleccion = 0.5f;
@@ -23,7 +25,6 @@ public class RecursoColocado : UnidadColocada
     {
         base.Start();
         Equipo = Team.Neutral;
-
     }
 
     public override void SeleccionarUnidad()
@@ -68,8 +69,8 @@ public class RecursoColocado : UnidadColocada
         yield return new WaitForSeconds(tiempoEntreRecoleccion);
         if (aldeanoRecolector != null)
         {
-            //Avisarle al aldeano que se ponga a laburar
-            aldeanoRecolector.GetComponent<SlimeAnimator>()?.RecolectarRecurso();
+            //Lanzar el evento de recoleccion
+            EventoRecursoExtrayendose?.Invoke(aldeanoRecolector, tipoRecurso);
             // Agregar recurso
             RecursosManager.Instance.AgregarRecurso(TipoRecurso, ((int)(aldeanoRecolector.CombatSystem.Daño)));
             // Hacer daño

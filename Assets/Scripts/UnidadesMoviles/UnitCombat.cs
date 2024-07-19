@@ -20,7 +20,7 @@ public enum Estado
 
 public enum Actividad
 {
-    Atacando,
+    Atacar,
     Defendiendo,
     Siguiendo,
     Descansando,
@@ -193,7 +193,7 @@ public class UnitCombat : MonoBehaviour
         {
             // SEGUIR ENEMIGO
 
-            if (actividad == Actividad.Atacando) actividad = Actividad.Siguiendo; // Si está atacando, 
+            if (actividad == Actividad.Atacar) actividad = Actividad.Siguiendo; // Si está atacando, 
 
             // Calcular la dirección hacia el enemigo
             Vector3 direccionAlEnemigo = (enemigo.transform.position - transform.position).normalized;
@@ -214,7 +214,7 @@ public class UnitCombat : MonoBehaviour
     {
         if (unidadAtacada == null) return;
         // Comprobacion para evitar que cambie de objetivo 
-        if(actividad == Actividad.Atacando) return;
+        if(actividad == Actividad.Atacar) return;
         
         // Obtener su unidad de combate
         UnitCombat unidadDeCombateAtacada = unidadAtacada.GetComponent<UnidadMovilColocada>()?.CombatSystem;
@@ -227,13 +227,13 @@ public class UnitCombat : MonoBehaviour
         // Decidir el modo
         if (tipoDeAtaque == CombatType.Melee && distanciaAlObjetivo <= rangoAtaque)
         {
-            actividad = Actividad.Atacando; // Activar modo de ataque
+            actividad = Actividad.Atacar; // Activar modo de ataque
             unidadDeCombateAtacada?.NotificarAtaque(unidadColocadaPropia); // Notificar del ataque a la unidad atacada
             StartCoroutine(AtacarMele(unidadAtacada));
         }
         else if (tipoDeAtaque == CombatType.Distancia && distanciaAlObjetivo <= rangoAtaque)
         {
-            actividad = Actividad.Atacando;
+            actividad = Actividad.Atacar;
             unidadDeCombateAtacada.NotificarAtaque(unidadColocadaPropia);
             StartCoroutine(DispararFlecha(unidadAtacada));
         }

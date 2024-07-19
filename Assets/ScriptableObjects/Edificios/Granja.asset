@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Granja
   m_EditorClassIdentifier: 
   Icono: {fileID: 21300000, guid: 6fdd187264b98d4438000116d66e1ae9, type: 3}
-  Name: Granja
-  Descripcion: Aqui podras Generar comida
+  Name: Casa
+  Descripcion: Aumenta tu poblacion
   EdificioColocadoPrefab: {fileID: 6266747363952111780, guid: 5ed76fd3f98745c4e9a3add5dc88f093, type: 3}
   unidadesDisponiblesConfigs: []
   investigacionesDisponiblesConfigs: []
@@ -23,4 +23,4 @@ MonoBehaviour:
   CostoMadera: 100
   CostoPiedra: 50
   CostoMetal: 100
-  TiempoDeConstruccion: 1
+  TiempoDeConstruccion: 10
