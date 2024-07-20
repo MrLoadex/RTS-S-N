@@ -10,7 +10,7 @@ public enum CombatType
     Distancia
 }
 
-public enum Estado
+public enum EstadoComportamiento
 {
     Pasivo,
     Agresivo,
@@ -47,19 +47,19 @@ public class UnitCombat : MonoBehaviour
     Vector3 posicionOriginal;
 
     public Actividad ActivadadActual => actividad;
-    public Estado estadoActual;
+    public EstadoComportamiento estadoActual;
 
     private void Update() 
     {
         // Si se esta viendo a algun enemigo y no se esta en pasivo
-        if(unidadesEnemigasDivisadas.Count > 0 && estadoActual != Estado.Pasivo)
+        if(unidadesEnemigasDivisadas.Count > 0 && estadoActual != EstadoComportamiento.Pasivo)
         {
             switch (estadoActual)
             {
-                case Estado.Neutral:
+                case EstadoComportamiento.Neutral:
                 AtacarSiEsVisible();
                 break;
-                case Estado.Agresivo:
+                case EstadoComportamiento.Agresivo:
                 ObservarSeguirYAtacar();
                 break;
             }
@@ -301,7 +301,7 @@ public class UnitCombat : MonoBehaviour
         unidadesEnemigasDivisadas.Remove(unidadPerdida);
     }
 
-    public void CambiarComportamiento(Estado nuevoComportamiento)
+    public void CambiarComportamiento(EstadoComportamiento nuevoComportamiento)
     {   
         //Asignar el nuevo comportamiento
         estadoActual = nuevoComportamiento;
@@ -311,7 +311,7 @@ public class UnitCombat : MonoBehaviour
     {   
         if(unidadAtacante == null) return;
 
-        if(estadoActual == Estado.Defensivo || estadoActual == Estado.Neutral)
+        if(estadoActual == EstadoComportamiento.Defensivo || estadoActual == EstadoComportamiento.Neutral)
         {
             if(actividad == Actividad.Descansando)
             {
@@ -342,7 +342,7 @@ public class UnitCombat : MonoBehaviour
     {
         var estadoAnterior = estadoActual;
         //Poner en pasivo por algunos segundos
-        estadoActual = Estado.Pasivo;
+        estadoActual = EstadoComportamiento.Pasivo;
         actividad = Actividad.Controlado;
 
         yield return new WaitForSeconds(3);
@@ -353,11 +353,11 @@ public class UnitCombat : MonoBehaviour
 
     private void OnEnable() 
     {
-        UnitsManager.EventoUnidadControladaPorUsuario += AccionDeUsuario;
+        SelectUnitsManager.EventoUnidadControladaPorUsuario += AccionDeUsuario;
     }
 
     private void OnDisable() 
     {
-        UnitsManager.EventoUnidadControladaPorUsuario -= AccionDeUsuario;
+        SelectUnitsManager.EventoUnidadControladaPorUsuario -= AccionDeUsuario;
     }
 }

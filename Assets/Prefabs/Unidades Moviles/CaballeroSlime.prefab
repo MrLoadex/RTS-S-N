@@ -1564,9 +1564,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 46ab5864a980e30418148e1eada8236e, type: 3}
       insertIndex: -1
       addedObject: {fileID: 3782177182108777634}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 46ab5864a980e30418148e1eada8236e, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 7889340764540360943}
   m_SourcePrefab: {fileID: 100100000, guid: 46ab5864a980e30418148e1eada8236e, type: 3}
 --- !u!4 &7079613131396950618 stripped
 Transform:
@@ -1872,29 +1869,4 @@ MonoBehaviour:
   capaTerreno:
     serializedVersion: 2
     m_Bits: 8
-  correccionAlturaPersonaje: 0.2
---- !u!114 &7889340764540360943
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7598705131410649312}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1a065a2f4295a9d428256d7f4799ec3a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  "tama\xF1oMin": 0.5
-  "tama\xF1oMax": 1.2
-  velocidadCambio: 1
-  bodyTransform: {fileID: 0}
-  arma: {fileID: 0}
-  rotacionArma: 30
-  amplitudSalto: 0.1
-  velocidadDescanso: 0.2
-  velocidadSalto: 2
-  capaTerreno:
-    serializedVersion: 2
-    m_Bits: 0
   correccionAlturaPersonaje: 0.2

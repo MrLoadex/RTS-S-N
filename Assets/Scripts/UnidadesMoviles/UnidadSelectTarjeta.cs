@@ -20,7 +20,7 @@ public class UnidadSelectTarjeta : MonoBehaviour
     public void UnselectUnit()
     {
         // Obtener una lista de las unidades seleccionadas
-        SelectManager.Instance.UnselectUnit(Unidad);
+        SelectUnitsManager.Instance.UnselectUnit(Unidad);
 
     }
 }

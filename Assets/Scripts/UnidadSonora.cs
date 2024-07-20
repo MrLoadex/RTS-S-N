@@ -72,7 +72,7 @@ public class UnidadSonora : MonoBehaviour
     {
         RecursoColocado.EventoRecursoExtrayendose += ResponderEventoRecursoExtrayendose;
         EdificioColocado.EventoConstruyendoEdificio += ResponderEventoConstruyendoEdificio;
-        UnitsManager.EventoUnidadControladaPorUsuario += ResponderEventoUnidadControladaPorUsuario;
+        SelectUnitsManager.EventoUnidadControladaPorUsuario += ResponderEventoUnidadControladaPorUsuario;
     }
 
     private void OnDisable() 

@@ -766,8 +766,8 @@ PlayerSettings:
   apiCompatibilityLevelPerPlatform: {}
   m_RenderingPath: 1
   m_MobileRenderingPath: 1
-  metroPackageName: RTS S-N
-  metroPackageVersion: 
+  metroPackageName: RTSS-N
+  metroPackageVersion: 1.0.0.0
   metroCertificatePath: 
   metroCertificatePassword: 
   metroCertificateSubject: 
@@ -775,7 +775,7 @@ PlayerSettings:
   metroCertificateNotAfter: 0000000000000000
   metroApplicationDescription: RTS S-N
   wsaImages: {}
-  metroTileShortName: 
+  metroTileShortName: RTS S-N
   metroTileShowName: 0
   metroMediumTileShowName: 0
   metroLargeTileShowName: 0

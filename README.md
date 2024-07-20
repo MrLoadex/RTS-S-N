@@ -50,3 +50,10 @@ Importar y mover a Assets/Vendors/
 
 - **Descripción:** Un conjunto de texturas de terreno gratis que te ayudará a crear entornos realistas en tus proyectos.
 - **Enlace:** [Terrain Textures Pack Free](https://assetstore.unity.com/packages/2d/textures-materials/nature/terrain-textures-pack-free-139542)
+
+## 8. Free UI pack
+
+[![Free UI pack](https://assetstore.unity.com/packages/2d/gui/icons/free-ui-pack-170878)
+
+- **Descripción:** Build your own unique ui from the included prefabs and sprites. Sprite atlas 2048 x 727 pixels includes 39 grayscale sprites.
+- **Enlace:** [Free UI pack](https://assetstore.unity.com/packages/2d/gui/icons/free-ui-pack-170878)
