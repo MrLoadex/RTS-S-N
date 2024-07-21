@@ -11,7 +11,7 @@ public class SelectUnitsManager : Singleton<SelectUnitsManager>
     private Camera cam;
     private RaycastHit hit;
     private List<UnidadMovilColocada> unidadesMovilesSeleccionadas; // Se almacenan las unidades moviles seleccionadas para poder moverlas
-    
+    private EdificioColocado edificioColocadoSeleccionado;
 
     public static Action<UnidadMovilColocada> EventoUnidadControladaPorUsuario;
 
@@ -41,13 +41,27 @@ public class SelectUnitsManager : Singleton<SelectUnitsManager>
                 var unidadObjetivo = hit.collider.GetComponent<UnidadColocada>();
 
                 // Si impacta contra una unidad enemiga
-                if (unidadObjetivo != null && (unidadObjetivo.Equipo == Team.Enemigo))
+                if (unidadObjetivo != null)
                 {
-                    // Atacar
-                    Atacar(unidadesMovilesSeleccionadas ,unidadObjetivo);
+                    if (unidadObjetivo.Equipo == Team.Enemigo)
+                    {
+                        // Atacar
+                        Atacar(unidadesMovilesSeleccionadas ,unidadObjetivo);
+
+                    }
+                    else if (unidadObjetivo.GetComponent<EdificioColocado>() != null || unidadObjetivo.GetComponent<RecursoColocado>() != null)
+                    {
+                        // Seleccionar a la unidad como objetivo
+                        unidadObjetivo.SeleccionarComoObjetivo();
+                        MoverUnidad(hit);
+                    }
                 }
                 else
                 {
+                    // Instanciar objeto de referencia de movimiento
+                    var objetoReferMov = Instantiate(objetoReferMovPrefab, hit.point, Quaternion.identity);
+                    objetoReferMov.transform.Rotate(new Vector3(90,0,0)); 
+                    StartCoroutine(DestruirObjetoReferMov(objetoReferMov));
                     MoverUnidad(hit);
                 }
             } 
@@ -96,11 +110,6 @@ public class SelectUnitsManager : Singleton<SelectUnitsManager>
         {
             MoverMultiplesUnidades(unidadesMovilesSeleccionadas, hit.point);
         }
-
-        // Instanciar objeto de referencia de movimiento
-        var objetoReferMov = Instantiate(objetoReferMovPrefab, hit.point, Quaternion.identity);
-        objetoReferMov.transform.Rotate(new Vector3(90,0,0)); 
-        StartCoroutine(DestruirObjetoReferMov(objetoReferMov));
     }
 
     private void MoverMultiplesUnidades(List<UnidadMovilColocada> unidadesMovilesSelect, Vector3 posicion)
@@ -143,7 +152,8 @@ public class SelectUnitsManager : Singleton<SelectUnitsManager>
             if (edificioSelect != null)
             {
                 UnselectAll();
-                edificioSelect.SeleccionarUnidad();
+                edificioColocadoSeleccionado = edificioSelect;
+                edificioColocadoSeleccionado.SeleccionarUnidad();
             }
             else if (unidadMovilSelect != null && unidadMovilSelect.Equipo == Team.Aliado)
             {
@@ -184,6 +194,9 @@ public class SelectUnitsManager : Singleton<SelectUnitsManager>
 
     private void UnselectAll()
     {
+        // Deseleccionar el edificio
+        edificioColocadoSeleccionado?.DeseleccionarUnidad();
+
         // Avisarle a las unidades que ya no estan seleccionadas
         foreach (var unidad in unidadesMovilesSeleccionadas)
         {

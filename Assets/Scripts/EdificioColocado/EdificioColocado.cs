@@ -30,6 +30,8 @@ public class EdificioColocado : UnidadColocada
     [SerializeField] private Transform spawnUnitPosition; // Donde se spawnearan las unidades
     [SerializeField] private int colaMaximaAcciones = 5; // Max de unidades e investigaciones en la cola al mismo tiempo
     [SerializeField] private float ajusteDeAltura;
+    [SerializeField] private GameObject identificadorSeleccionGO;
+    [SerializeField] private GameObject identidicadorSoyObjetivoGO;
 
     //Propiedades de acciones
     public List<AccionDeEdificio> UnidadesDisponibles {private set;get;} = new List<AccionDeEdificio>();
@@ -190,6 +192,12 @@ public class EdificioColocado : UnidadColocada
     public override void SeleccionarUnidad()
     {
         UIManager.Instance.SeleccionarUnidad(this);   
+        identificadorSeleccionGO.SetActive(true);
+    }
+
+    public override void DeseleccionarUnidad()
+    {
+        identificadorSeleccionGO.SetActive(false);
     }
 
     private IEnumerator ContinuarConstruccion(UnidadMovilColocada aldeanoConstrucor)
@@ -215,6 +223,19 @@ public class EdificioColocado : UnidadColocada
         }
     }
 
+    #region Marcar como objetivo
+    public override void SeleccionarComoObjetivo()
+    {
+        identidicadorSoyObjetivoGO.SetActive(true);
+        StartCoroutine(DesactivarObjetoConRetraso(identidicadorSoyObjetivoGO, 1f));
+    }
+
+    IEnumerator DesactivarObjetoConRetraso(GameObject objejto, float retraso)
+    {
+        yield return new WaitForSeconds(retraso);
+        objejto.SetActive(false);
+    }
+    #endregion
     #region Acciones
     // Comprobar si puede agregar una unidad a la cola y si es asi lo hace y devuelve true, caso contrario devuelve false
     public bool ComprobarYAgregarUnidadCola(AccionDeEdificio unidadAAgregar)

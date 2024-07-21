@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -88,13 +87,13 @@ public class UIManager : Singleton<UIManager>
     [SerializeField] private TextMeshProUGUI tiempoSigOleadaTMP;
     [SerializeField] private TextMeshProUGUI zombisVivosTMP;
     [SerializeField] private Image bordeSangrientoIMG;
+    [SerializeField] private GameObject panelOleadaActiva;
+    [SerializeField] private GameObject siguienteOleadaButtonGO;
     
     [Header("Derrota config")]
     [SerializeField] private TextMeshProUGUI userNameTMP;
     [SerializeField] private TextMeshProUGUI puntosTMP;
     [SerializeField] private TextMeshProUGUI posicionTMP;
-
-
 
     // Guarda la ultima unidad seleccionada para saber si debe seguir actualizando la interface de construccion
     private UnidadColocada ultimaUnidadSeleccionada;
@@ -130,11 +129,11 @@ public class UIManager : Singleton<UIManager>
         // Comprobar si la lista esta vacia
         if(unidades.Count == 0 || unidades == null)
         {
-            AbrirCerrarPanelConstruccion(true);
+            AbrirPanelConstruccion();
             return;
         }
         // Abrir el panel
-        AbrirCerrarPanelUnidadesSelect(true);
+        AbrirPanelUnidadesSelect();
 
         // Eliminar tarjetas actuales
         foreach (Transform child in contenedorTarjetasUnidadesSelect)
@@ -183,7 +182,7 @@ public class UIManager : Singleton<UIManager>
             estadoEdificioEnConstruccionIMG.fillAmount = (edificio.TiempoActualConstruccion);
         }
         // Abrir el panel
-        AbrirCerrarPanelEdificioEnConstruccion(true);
+        AbrirPanelEdificioEnConstruccion();
         // Mantener actualizada la UI
         StartCoroutine(MantenerActualizadoEdificioConstruccionUI(edificio));
     }
@@ -233,7 +232,7 @@ public class UIManager : Singleton<UIManager>
         }
     
         // Abrir el panel
-        AbrirCerrarPanelEdificioConstruido(true);
+        AbrirPanelEdificioConstruido();
     }
 
     public void ActualizarPanelDescripcionAccionEdificio(AccionDeEdificio accion)
@@ -281,7 +280,7 @@ public class UIManager : Singleton<UIManager>
                 //Si es el mismo edificio, pero ya esta construido entonces se abre la interface correcta
                 ConfigurarEdificioConsturidoUI(edificio);
                 CerrarPaneles();
-                AbrirCerrarPanelEdificioConstruido(true);
+                AbrirPanelEdificioConstruido();
             }
         }
 
@@ -392,7 +391,6 @@ public class UIManager : Singleton<UIManager>
     }
 
     #endregion
-
     #region Building
     public void InicializarPanelConstruccion(EdificioBlueprint[] buildersDsiponibles)
     {
@@ -423,11 +421,11 @@ public class UIManager : Singleton<UIManager>
         buildPanelInfo.SetActive(false);
     }
     #endregion
-
     #region Oleadas
     public void ConfigurarOleadaUI(int _oleadaActual, int _segundosParaOleada, int _zombisVivos)
     {
-        string tiempoFormateado;
+        // String que llenara el TMP de tiempo de oleada
+        string tiempoFormateado = "BAJO ATAQUE"; // Se lo inicializa en "BAJO ATAQUE" porque sera modificado siempre que se necesite
         if (_segundosParaOleada > 0)
         //Formatear minutos para la siguiente oleada
         {
@@ -435,24 +433,26 @@ public class UIManager : Singleton<UIManager>
             {
                 tiempoSigOleadaTMP.color = Color.black;
                 bordeSangrientoIMG.gameObject.SetActive(false);
+                panelOleadaActiva.SetActive(false);
+                siguienteOleadaButtonGO.SetActive(true);
             }
 
             int minutos = Mathf.FloorToInt(_segundosParaOleada / 60);
             int segundos = Mathf.FloorToInt(_segundosParaOleada % 60);
             tiempoFormateado = string.Format("{0:00}:{1:00}", minutos, segundos);
         }
-        else
+        else if (tiempoSigOleadaTMP.color != Color.red) 
         {
-            if (tiempoSigOleadaTMP.color != Color.red) 
-            {
-                // Poner las letras de color rojo
-                tiempoSigOleadaTMP.color = Color.red;
-                // Activar el borde  sangriento
-                bordeSangrientoIMG.gameObject.SetActive(true);
-                // Animar el borde sangriento
-                StartCoroutine(IniciarBordeSangriento(true));
-            }
-            tiempoFormateado = "BAJO ATAQUE";
+            // Poner las letras de color rojo
+            tiempoSigOleadaTMP.color = Color.red;
+            // Activar el borde  sangriento
+            bordeSangrientoIMG.gameObject.SetActive(true);
+            // Activar el panel de orda activa
+            panelOleadaActiva.SetActive(true);
+            // Activar el boton de siguiente oleada
+            siguienteOleadaButtonGO.SetActive(false);
+            // Animar el borde sangriento
+            StartCoroutine(IniciarBordeSangriento(true));
         }
 
         // Actualizar GUI
@@ -492,7 +492,6 @@ public class UIManager : Singleton<UIManager>
     }
 
     #endregion
-
     #region Derrota
     public void ConfigurarPanelDerrota(string userName, int score, int puesto)
     {
@@ -501,37 +500,37 @@ public class UIManager : Singleton<UIManager>
         posicionTMP.text = puesto.ToString();
     }
     #endregion
-    
     #region Paneles
+    
     public void AbrirPanelDerrota()
     {
         derrotaPanel.SetActive(true);
     }
 
-    public void AbrirCerrarPanelEdificioConstruido(bool estado)
+    public void AbrirPanelEdificioConstruido()
     {
         CerrarPaneles();
-        edificioPanel.SetActive(estado);
+        edificioPanel.SetActive(true);
         
     }
 
-    public void AbrirCerrarPanelConstruccion(bool estado)
+    public void AbrirPanelConstruccion()
     {
         CerrarPaneles();
-        buildPanel.SetActive(estado);
+        buildPanel.SetActive(true);
         
     }
     
-
-    public void AbrirCerrarPanelEdificioEnConstruccion(bool estado)
+    public void AbrirPanelEdificioEnConstruccion()
     {
         CerrarPaneles();
-        edificioEnConstruccionPanel.SetActive(estado);
+        edificioEnConstruccionPanel.SetActive(true);
     }
 
-    public void AbrirCerrarPanelUnidadesSelect(bool estado)
+    public void AbrirPanelUnidadesSelect()
     {
-        unidadesSeleccionadasPanel.SetActive(estado);
+        AbrirPanelConstruccion();
+        unidadesSeleccionadasPanel.SetActive(true);
     }
 
     private void CerrarPaneles()
@@ -542,5 +541,4 @@ public class UIManager : Singleton<UIManager>
         buildPanel.SetActive(false);
     }
     #endregion
-
 }

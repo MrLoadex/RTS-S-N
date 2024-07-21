@@ -31,4 +31,9 @@ public class UnidadColocada : MonoBehaviour
     {
         
     }
+
+    public virtual void SeleccionarComoObjetivo()
+    {
+           
+    }
 }

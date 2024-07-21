@@ -3469,7 +3469,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 114958063678213738, guid: b762002f1ac0943bfae641ee1d696f65, type: 3}
       propertyPath: m_Text
-      value: MENU PRINCIPAL
+      value: PUNTAJES
       objectReference: {fileID: 0}
     - target: {fileID: 224009485595914986, guid: b762002f1ac0943bfae641ee1d696f65, type: 3}
       propertyPath: m_Pivot.x
