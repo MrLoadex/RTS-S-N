@@ -201,7 +201,14 @@ public class BuilderManager : Singleton<BuilderManager>
         bool recursosSuficientes = RecursosManager.Instance.ComprobarRecursosSuficientesEdificio(actualEdificioBlueprint);
         
         // Comprobar si hay recursos suficientes
-        if (!recursosSuficientes){return; }
+        if (!recursosSuficientes)
+        
+        {
+            //Avisarle al usuario que no hay recursos suficientes
+            StartCoroutine(UIManager.Instance.MostrarPanelEdificioConstruido());
+            //Finalizar funcion
+            return;
+        }
 
         //Spawnea un nuevo Edificio
         Vector3 coordenadasSpawn = new Vector3(0, ajusteAlturaEdificio, 0);

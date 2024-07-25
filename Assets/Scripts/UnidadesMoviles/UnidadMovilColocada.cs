@@ -1,4 +1,6 @@
 using System;
+using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -16,6 +18,7 @@ public class UnidadMovilColocada : UnidadColocada
     [SerializeField] private UnidadVision visionPrefab;
     public UnitCombat CombatSystem { get; private set; }
     [SerializeField] private GameObject auraSeleccionObject;
+    [SerializeField] private GameObject targetIndicatorPrefab;
 
     protected override void Start() 
     {
@@ -27,9 +30,6 @@ public class UnidadMovilColocada : UnidadColocada
         vision.unidadDueña = this;
     }
 
-    private void Update() 
-    {
-    }
     //Mover unidad
     public void MoverUnidad(Vector3 posicionObjetivo)
     {
@@ -47,4 +47,21 @@ public class UnidadMovilColocada : UnidadColocada
         if (Equipo != Team.Aliado) return;
         auraSeleccionObject.SetActive(false);
     }
+
+    public override void SeleccionarComoObjetivo()
+    {
+        var targetIndicatorGO = Instantiate(targetIndicatorPrefab, gameObject.transform);
+        StartCoroutine(ElimiarObjetoConRetraso(targetIndicatorGO, 0.3f));
+    }
+    
+    IEnumerator ElimiarObjetoConRetraso(GameObject objeto, float retraso)
+    {
+        yield return new WaitForSeconds(retraso);
+        if (objeto != null || !objeto.IsDestroyed())
+        {
+            Destroy(objeto);
+        }
+
+    }
+
 }

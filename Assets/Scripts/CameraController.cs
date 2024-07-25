@@ -66,11 +66,11 @@ public class CameraController : MonoBehaviour
     {
         Vector3 rotationPoint = transform.position + transform.forward * rotationDistance;
 
-        if (Input.GetKey(KeyCode.Q))
+        if (Input.GetKey(KeyCode.E))
         {
             RotateAroundPoint(rotationPoint, rotationSpeed * Time.deltaTime);
         }
-        if (Input.GetKey(KeyCode.E))
+        if (Input.GetKey(KeyCode.Q))
         {
             RotateAroundPoint(rotationPoint, -rotationSpeed * Time.deltaTime);
         }

@@ -14,9 +14,9 @@ public enum EstadoEdificio
 public class EdificioColocado : UnidadColocada
 {
 
-    //Este evento se utilizara para notificar a los aldeanos
-    public Action<EstadoEdificio> EventoEstadoConstruccionEdificio;
+    public Action<EstadoEdificio> EventoEstadoConstruccionEdificio; // NO APLICADO AUN. SERA PARA EL CITYMANAGER O ALGO ASI
 
+    //Este evento se utilizara para notificar a los aldeanos
     public static Action<UnidadMovilColocada> EventoConstruyendoEdificio;
 
     public int TiempoDeConstruccion{private set; get;}
@@ -131,7 +131,7 @@ public class EdificioColocado : UnidadColocada
             UnidadesDisponibles.Add(unidadDispoNueva);
         }
 
-        EventoEstadoConstruccionEdificio?.Invoke(EstadoConstruccion); // NO APLICADO AUN. SERA PARA EL CITYMANAGER O ALGO ASI
+        EventoEstadoConstruccionEdificio?.Invoke(EstadoConstruccion); 
     }
 
     public void ConstruirEdificio()

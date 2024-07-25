@@ -99,7 +99,9 @@ public class AccionDeEdificio : MonoBehaviour
 
         // Spawnear Unidad
         UnidadMovilColocada unidadInstanciada = Instantiate(unidadPorSpawnearPrefab);
+        unidadInstanciada.gameObject.SetActive(false);
         unidadInstanciada.transform.position = edificioDueño.SpawnUnitPosition.position;
+        unidadInstanciada.gameObject.SetActive(true);
         
         // Llamar al evento de nueva unidad instaniada y pasar la nueva unidad como parametro
         EventoNuevaUnidadMovil?.Invoke(unidadInstanciada);

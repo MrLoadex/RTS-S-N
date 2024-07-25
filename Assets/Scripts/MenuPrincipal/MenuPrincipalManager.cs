@@ -28,8 +28,16 @@ public class MenuPrincipalManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI userNameTMP;
     [SerializeField] DatosPartida datosPartidaSO;
 
+    [Header("Tutorial")]
+    [SerializeField] private GameObject panelTutorial;
+
     private string userName;
     private Dificultad dificultad = Dificultad.Normal;
+
+    public void AbrirCerrarPanelTutorial(bool estado)
+    {
+        panelTutorial.SetActive(estado);
+    }
 
     public void AbrirPanelPrincipal ()
     {

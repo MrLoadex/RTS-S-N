@@ -638,6 +638,7 @@ MonoBehaviour:
   agent: {fileID: 2504597316245230770}
   visionPrefab: {fileID: 3655432019141569207, guid: 5385b3fa1b4d25a40b981863033efcc3, type: 3}
   auraSeleccionObject: {fileID: 6395533105940549747}
+  targetIndicatorPrefab: {fileID: 7107046672719570308, guid: e99a182375549c943b973c6b28cfb7d8, type: 3}
 --- !u!114 &-3001369475368364160
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -670,7 +671,7 @@ MonoBehaviour:
   "da\xF1o": 10
   EsperaEntreAtaque: 0.5
   flechaPrefab: {fileID: 0}
-  rangoAtaque: 1.5
+  rangoAtaque: 3
   rangoVision: 10
   estadoActual: 2
 --- !u!114 &621536039956895016

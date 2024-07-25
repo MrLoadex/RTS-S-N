@@ -42,32 +42,6 @@ public class OleadasManager : Singleton<OleadasManager>
     // Oleada actual
     public int OleadaActual { get; private set; } = 1;
 
-    private void Start() 
-    {
-        // Inicializar Variables
-        enemigosVivos = new List<UnidadMovilColocada>();
-
-        switch (dificultad)
-        {
-            case Dificultad.Facil:
-                configuracionActual = configuracionOleadaFacil;
-                break;
-            case Dificultad.Normal:
-                configuracionActual = configuracionOleadaNormal;
-                break;
-            case Dificultad.Dificil:
-                configuracionActual = configuracionOleadaDificil;
-                break;
-
-        }
-
-        //Configurar primer oleada:
-        OleadaActual = 1;
-        cantidadEnemigosASpawnear = configuracionActual.cantidadDeEnemigos;
-        segundosParaOleada = (int)(configuracionActual.minutosMinimoParaOleada * 60);
-        StartCoroutine(ContinuarCuentaRegresiva());
-    }
-
     private void ConfigurarSiguienteOleada()
     {
         //Configurar primer oleada:
@@ -117,6 +91,9 @@ public class OleadasManager : Singleton<OleadasManager>
             // No quedan enemigos vivos, iniciar la siguiente oleada
             if (enemigosVivos.Count == 0)
             {
+                // Notificar a party manager.
+                PartyManager.Instance.SumarPuntoPorOleadaDerrotada();
+
                 ConfigurarSiguienteOleada(); // Configurar la siguiente oleada (ajustar dificultad, etc.)
             }
             else
@@ -154,6 +131,28 @@ public class OleadasManager : Singleton<OleadasManager>
     public void SetDificultad(Dificultad _dificultad)
     {
         dificultad = _dificultad;
+       // Inicializar Variables
+        enemigosVivos = new List<UnidadMovilColocada>();
+
+        switch (dificultad)
+        {
+            case Dificultad.Facil:
+                configuracionActual = configuracionOleadaFacil;
+                break;
+            case Dificultad.Normal:
+                configuracionActual = configuracionOleadaNormal;
+                break;
+            case Dificultad.Dificil:
+                configuracionActual = configuracionOleadaDificil;
+                break;
+
+        }
+
+        //Configurar primer oleada:
+        OleadaActual = 1;
+        cantidadEnemigosASpawnear = configuracionActual.cantidadDeEnemigos;
+        segundosParaOleada = (int)(configuracionActual.minutosMinimoParaOleada * 60);
+        StartCoroutine(ContinuarCuentaRegresiva());
     }
 
     public void AdelantarOleada()

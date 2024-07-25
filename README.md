@@ -1,4 +1,7 @@
-Pronto subire la documentacion del proyecto.
+## LINK AL VIDEOJUEGO
+https://mrloadex.itch.io/rts-s-n
+
+# Pronto subire la documentacion del proyecto.
 
 # Assets Necesarios
 Importar y mover a Assets/Vendors/

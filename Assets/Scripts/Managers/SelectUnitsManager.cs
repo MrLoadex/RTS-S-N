@@ -43,18 +43,18 @@ public class SelectUnitsManager : Singleton<SelectUnitsManager>
                 // Si impacta contra una unidad enemiga
                 if (unidadObjetivo != null)
                 {
+                    // Seleccionar a la unidad como objetivo
+                    unidadObjetivo.SeleccionarComoObjetivo();
+                    MoverUnidad(hit);
+
+                    // Si es enemigo se la ataca
                     if (unidadObjetivo.Equipo == Team.Enemigo)
                     {
                         // Atacar
                         Atacar(unidadesMovilesSeleccionadas ,unidadObjetivo);
 
                     }
-                    else if (unidadObjetivo.GetComponent<EdificioColocado>() != null || unidadObjetivo.GetComponent<RecursoColocado>() != null)
-                    {
-                        // Seleccionar a la unidad como objetivo
-                        unidadObjetivo.SeleccionarComoObjetivo();
-                        MoverUnidad(hit);
-                    }
+
                 }
                 else
                 {

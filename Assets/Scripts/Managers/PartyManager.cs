@@ -21,7 +21,6 @@ public class PartyManager : Singleton<PartyManager>
     private Dificultad dificultadActual;
     private Puntaje actualPuntaje;
 
-    // Start is called before the first frame update
     void Start()
     {
         // Configurar partida
@@ -31,8 +30,11 @@ public class PartyManager : Singleton<PartyManager>
         // Si no hay unidades creadas por el user entonces crea la lista para que no sea nula
         if (unidadesMovilesAliadas == null) unidadesMovilesAliadas = new List<UnidadMovilColocada>();
 
-        //Seleccionar la planilla correcta
+        //Seleccionar la planilla de puntos correcta
         SeleccionarPlanillaCorrecta();
+
+        // Configurar OleadasManager con la dificultad correcta
+        OleadasManager.Instance.SetDificultad(dificultadActual);
     }
 
     private void SeleccionarPlanillaCorrecta()
@@ -58,6 +60,11 @@ public class PartyManager : Singleton<PartyManager>
 
     }
 
+    public void SumarPuntoPorOleadaDerrotada()
+    {
+        actualPuntaje.Valor ++;
+    }
+
     public void MostrarPanelDerrota()
     {
         // Agregar el puntaje si se pudo
@@ -73,7 +80,7 @@ public class PartyManager : Singleton<PartyManager>
     {
         SceneManager.LoadScene("MenuPrincipal"); // Reemplaza "MenuPrincipal" con el nombre real de tu escena de menú principal
     }
-
+ 
     #region Eventos
 
     private void OnEnable() 

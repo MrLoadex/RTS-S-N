@@ -28,7 +28,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1008763217614128918}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
@@ -70,6 +70,7 @@ MonoBehaviour:
   Descripcion: 
   Equipo: 2
   tipoRecurso: 3
+  targetIndicatorPrefab: {fileID: 7107046672719570308, guid: e99a182375549c943b973c6b28cfb7d8, type: 3}
   tiempoEntreRecoleccion: 3
 --- !u!114 &7030842034535469237
 MonoBehaviour:
@@ -135,7 +136,7 @@ Transform:
   m_GameObject: {fileID: 3967116241227363691}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0, z: 1.02}
+  m_LocalPosition: {x: 0, y: 0.917, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -167,7 +168,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8283719092979212703}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -0.12056799}
   m_LocalScale: {x: 2.528606, y: 2.5286052, z: 2.5286052}
   m_ConstrainProportionsScale: 1

@@ -16,6 +16,7 @@ public class RecursoColocado : UnidadColocada
     public static Action<UnidadMovilColocada, TipoRecurso> EventoRecursoExtrayendose;
 
     [SerializeField] private TipoRecurso tipoRecurso;
+    [SerializeField] private GameObject targetIndicatorPrefab;
     public TipoRecurso TipoRecurso=> tipoRecurso;
     public float tiempoEntreRecoleccion = 0.5f;
 
@@ -79,4 +80,16 @@ public class RecursoColocado : UnidadColocada
         }
     }
 
+    public override void SeleccionarComoObjetivo()
+    {
+        var targetIndicatorGO = Instantiate(targetIndicatorPrefab, gameObject.transform);
+        StartCoroutine(ElimiarObjetoConRetraso(targetIndicatorGO, 0.3f));
+    }
+
+    IEnumerator ElimiarObjetoConRetraso(GameObject objeto, float retraso)
+    {
+        yield return new WaitForSeconds(retraso);
+        Destroy(objeto);
+
+    }
 }

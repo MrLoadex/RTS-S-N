@@ -26,6 +26,7 @@ public class UIManager : Singleton<UIManager>
     [Header("Building")]
     [SerializeField] private Transform buildersContenedor;
     [SerializeField] private EdificioBlueprintTarjeta edificioBotonPrefab;
+    [SerializeField] private GameObject edificioTerminadoImagen;
 
     [Header("Build Info")]
     [SerializeField] private GameObject buildPanelInfo;
@@ -35,6 +36,7 @@ public class UIManager : Singleton<UIManager>
     [SerializeField] private TextMeshProUGUI buildCostoMaderaCantidadTMP;
     [SerializeField] private TextMeshProUGUI buildCostoPiedraCantidadTMP;
     [SerializeField] private TextMeshProUGUI buildCostoMetalCantidadTMP;
+    [SerializeField] private GameObject panelRecursosInsuficientes;
 
     [Header("Edificio En Construccion Config")]
     [SerializeField] private Image iconoEdificioEnConstruccion;
@@ -419,6 +421,22 @@ public class UIManager : Singleton<UIManager>
     public void OcultarInfoConstruccion()
     {
         buildPanelInfo.SetActive(false);
+    }
+    
+    public IEnumerator MostrarPanelRecursosInsuficientes()
+    {
+        panelRecursosInsuficientes.SetActive(true);
+        yield return new WaitForSeconds(0.5f);
+        panelRecursosInsuficientes.SetActive(false);
+
+    }
+    
+    public IEnumerator MostrarPanelEdificioConstruido()
+    {
+        edificioTerminadoImagen.SetActive(true);
+        yield return new WaitForSeconds(0.5f);
+        edificioTerminadoImagen.SetActive(false);
+
     }
     #endregion
     #region Oleadas

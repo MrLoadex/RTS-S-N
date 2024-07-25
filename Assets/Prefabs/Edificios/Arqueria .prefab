@@ -56,7 +56,7 @@ Transform:
   m_GameObject: {fileID: 4811346973520161629}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.0459, y: 0.004325714, z: 0.0828}
+  m_LocalPosition: {x: 3.93, y: 0.64, z: 6.07}
   m_LocalScale: {x: 0.014285714, y: 0.022937143, z: 0.014285714}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -184,7 +184,7 @@ MonoBehaviour:
   Equipo: 0
   spawnUnitPosition: {fileID: 8931087011403255923}
   colaMaximaAcciones: 5
-  ajusteDeAltura: -0.27
+  ajusteDeAltura: 0
   identificadorSeleccionGO: {fileID: 1663142542563056751}
   identidicadorSoyObjetivoGO: {fileID: 899425634028290386}
 --- !u!208 &7135681522535167213
